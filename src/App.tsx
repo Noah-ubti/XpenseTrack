@@ -1,22 +1,43 @@
 import { ExpenseList } from './ExpenseList'
 
 const App = () => {
-  const navigateTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+  const scrollTo = (id: string) => {
+    const element = document.getElementById(id)
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
   }
 
   return (
-    <main style={{ maxWidth: '900px', margin: '0 auto', padding: '20px', fontFamily: 'sans-serif' }}>
-      <h1>XpenseTrack Dashboard</h1>
-      <nav aria-label="Main navigation" style={{ display: 'flex', gap: '8px', marginBottom: '20px' }}>
-        <button type="button" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>Home</button>
-        <button type="button" onClick={() => navigateTo('expenses')}>Expenses</button>
-        <button type="button" onClick={() => navigateTo('dashboard-summary')}>Dashboard</button>
-      </nav>
-      <section id="expenses">
+    <div className="app-shell">
+      <header className="hero">
+        <nav className="navbar" aria-label="Main navigation">
+          <div className="brand">
+            <span className="brand-mark" />
+            <span>XpenseTrack</span>
+          </div>
+          <div className="nav-actions">
+            <button type="button" className="nav-button" onClick={() => scrollTo('overview')}>Overview</button>
+            <button type="button" className="nav-button" onClick={() => scrollTo('expenses')}>Expenses</button>
+            <button type="button" className="nav-button primary" onClick={() => scrollTo('expense-form')}>Add expense</button>
+          </div>
+        </nav>
+
+        <div className="hero-content">
+          <div className="status-pill">Personal finance, simplified</div>
+          <h1>Know what your <em>money</em> is telling you</h1>
+          <p>Connect clarity to every purchase. Track your spending, understand patterns, and move toward what matters next.</p>
+          <div className="hero-actions">
+            <button type="button" className="accent" onClick={() => scrollTo('expense-form')}>Start tracking</button>
+            <button type="button" className="ghost" onClick={() => scrollTo('overview')}>View overview</button>
+          </div>
+        </div>
+      </header>
+
+      <main id="expenses">
         <ExpenseList />
-      </section>
-    </main>
+      </main>
+    </div>
   )
 }
 
